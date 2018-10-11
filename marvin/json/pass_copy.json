@@ -1,0 +1,10 @@
+{
+	"logins": {
+		"ADMIN": {
+			"pass":"encrypted passwords"
+		},
+		"example created user": {
+			"pass":"encrypted passwords"
+		}
+	}
+}

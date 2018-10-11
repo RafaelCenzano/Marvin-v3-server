@@ -1,0 +1,17 @@
+{
+	"contacts": {
+		"recipient": {
+			"email":"email@domain.com",
+			"number":"number here"
+		},
+		"recipient2": {
+			"email":"email@domain.com",
+			"number":"none"
+		}
+	},
+	"nicks": {
+		"contact_nick": {
+			"real_name":"name in contacts"
+		}
+	}
+}

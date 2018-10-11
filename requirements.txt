@@ -1,0 +1,7 @@
+requests==2.19.1
+gTTS==2.0.1
+SpeechRecognition==3.8.1
+beautifulsoup4==4.6.0
+pyaudio==0.2.11
+playsound==1.2.2
+word2number==1.1
