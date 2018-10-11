@@ -1,10 +1,7 @@
 #Imports
 from bs4 import BeautifulSoup as bs # process html
-from marvin.network import checkConnection # to make sure connected to internet
 from requests import get # to request page url code
-from webbrowser import open as webopen # webbrowser to open websites
 from urllib.parse import urlparse # urlparse to parse url data
-from marvin.essentials import speak, splitJoin # import speak and splitJoin
 
 
 ########################
@@ -45,43 +42,37 @@ class YoutubeScrape:
             speak('No internet connection couldn\'t access')
 
 class TomatoeScrape:
-    def __init__(self, speak_type, command, split_num):
-        if checkConnection() == True:
-            self.search_query = splitJoin(command, split_num) # function to split and rejoin command
-            self.speak_type = speak_type
-            spliting = self.search_query.split(" ")[0:]
-            search_query_with_under_scores = ("_").join(spliting)
-            self.url = ('https://www.rottentomatoes.com/m/' + search_query_with_under_scores)# combine url with search query from command
-            r = get(self.url) # request page
-            page = r.text # formatting
-            self.soup = bs(page, 'html.parser') # parse html
-            self.go_no_go = 'go'
-        else:
-            self.go_no_go = 'no'
-
+    def __init__(self, movie):
+        spliting = self.search_query.split(" ")[0:]
+        search_query_with_under_scores = ("_").join(spliting)
+        self.url = ('https://www.rottentomatoes.com/m/' + search_query_with_under_scores)# combine url with search query from command
+        r = get(self.url) # request page
+        page = r.text # formatting
+        self.soup = bs(page, 'html.parser') # parse html
 
     def scrapeRottentomatoes(self):
-        if go_no_go == 'go':
-            try:
-                rt = self.soup.findAll('span', attrs={'class':'meter-value superPageFontColor'}) # search for class meter-value superPageFontColor in html from page
-                if rt == []: raise Exception
-                raiting = rt[0].getText()
-                speak('Rotten Tomatoes gave '+ self.search_query + ' ' + raiting, self.speak_type)
-                people_score = self.soup.findAll('span', attrs={'class':'superPageFontColor', 'style':'vertical-align:top'})
-                score = people_score[0].getText()
-                want_or_like = self.soup.findAll('div', attrs={'class':'smaller bold hidden-xs superPageFontColor'})
-                like_or_want = want_or_like[0].getText()
-                if like_or_want == 'liked it':
-                    speak('\n' + score + ' of people liked ' + self.search_query, self.speak_type)
-                elif like_or_want == 'want to see':
-                    speak('\n' + score + ' want to see ' + self.search_query, self.speak_type)
-                else:
-                    raise Exception
-            except Exception as e:
-                speak('\nI ran into a problem\nThe name of the movie was probably input incorrectly', self.speak_type)
-                print(e)
-        else:
-            speak('No internet connection couldn\'t access')
+        try:
+            rt = self.soup.findAll('span', attrs={'class':'meter-value superPageFontColor'}) # search for class meter-value superPageFontColor in html from page
+            if rt == []: raise Exception
+            raiting = rt[0].getText()
+            people_score = self.soup.findAll('span', attrs={'class':'superPageFontColor', 'style':'vertical-align:top'})
+            score = people_score[0].getText()
+            want_or_like = self.soup.findAll('div', attrs={'class':'smaller bold hidden-xs superPageFontColor'})
+            like_or_want = want_or_like[0].getText()
+            if like_or_want == 'liked it':
+                movie_data = ('movie'=self.search_query,'type'='liked',
+                              'score'=score,'raiting'=raiting)
+                return movie_data
+            elif like_or_want == 'want to see':
+                movie_data = ('movie'=self.search_query,'type'='want',
+                              'score'=score,'raiting'=raiting)
+                return movie_data
+            else:
+                raise Exception
+        except Exception as e:
+            movie_data = ('movie'='none','type'='none',
+                          'score'='none','raiting'='none')
+            return movie_data
 
     def IMDb(self):
         if go_no_go == 'go':
