@@ -4,8 +4,8 @@ from json import load, dump # import json load
 from difflib import get_close_matches # import close matches functions
 from datetime import datetime # import datetime to show date and time
 from threading import Thread # import threading to run more than one job at a time
-from marvin.api import ApiService # classes to handle api work
-from marvin.webscrape import TomatoeScrape, YoutubeScrape, DefinitionFind # import webscrape functions
+from api import ApiService # classes to handle api work
+from webscrape import TomatoeScrape, YoutubeScrape, DefinitionFind # import webscrape functions
 import random
 from flask import Flask, jsonify
 
