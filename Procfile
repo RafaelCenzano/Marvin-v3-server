@@ -1,1 +1,1 @@
-web: python commands.py
+worker: python commands.py
