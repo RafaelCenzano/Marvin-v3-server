@@ -39,34 +39,26 @@ def rottentomatoes(movie):
     movie_data = TomatoeScrape.scrapeRottentomatoes()
     return jsonify(movie_data)
 
-    elif 'imdb' in command:
-        if 'imdb rating' in command:
-            num_type = 2
-        elif 'imdb' in command:
-            num_type = 1
-        TomatoeScrape = TomatoeScrape(speak_type, command, num_type)
-        TomatoeScrape.IMDb()
+@app.route("/imdbrating/<movie>")
+def rottentomatoes(movie):
+    TomatoeScrape = TomatoeScrape(movie)
+    movie_data = TomatoeScrape.IMDb()
+    return jsonify(movie_data)
 
-    elif 'youtube' in command:
-        if 'search youtube' in command:
-            num_type = 2
-        elif 'play in youtube' in commands:
-            num_type = 3
-        elif 'youtube' in command:
-            num_type = 1
-        Youtube_Scrape = YoutubeScrape(speak_type, command, num_type)
-        Youtube_Scrape.scrapeYoutube() # function to scrape urls
+@app.route("/imdbrating/<query>")
+def rottentomatoes(query):
+    Youtube_Scrape = YoutubeScrape(query)
+    youtube_link = Youtube_Scrape.scrapeYoutube() # function to scrape urls
+    return jsonify(youtube_link)
 
-    elif 'define' in command or 'what is the definition of' in command:
-        if 'what is the definition of' in command:
-            num_type = 5
-        elif 'define' in command:
-            num_type = 1
-        Definition_Find = DefinitionFind(speak_type, command, num_type)
-        Definition_Find.scrapeDefinition() # function to scrape urls
+@app.route("/definition/<query>")
+def rottentomatoes(query):
+    Definition_Find = DefinitionFind(query)
+    definition_data = Definition_Find.scrapeDefinition() # function to scrape urls
+    return jsonify(definition_data)
 
     # Marvin Api Commands #
-
+'''
     elif 'full random taco' == command:
         Api_Service = ApiService(speak_type)
         Api_Service.tacoFullRand()
@@ -76,3 +68,6 @@ def rottentomatoes(movie):
         Api_Service = ApiService(speak_type)
         Api_Service.tacoFullRand()
         Api_Service.dataTaco()
+'''
+if __name__ == '__main__':
+   app.run(host='0.0.0.0')
