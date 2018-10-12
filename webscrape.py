@@ -13,7 +13,7 @@ class YoutubeScrape:
     def __init__(self, query):
         self.query = query
         self.videolist = [] # create empty list
-        self.url = ('https://www.youtube.com/results?search_query=' + self.search_query)# combine url with search query from command
+        self.url = ('https://www.youtube.com/results?search_query=' + self.query)# combine url with search query from command
         r = get(self.url) # request page
         page = r.text # formatting
         soup = bs(page, 'html.parser') # parse html
@@ -30,7 +30,8 @@ class YoutubeScrape:
                 tmp = 'https://www.youtube.com' + v['href'] # create url to add to list with links from html
                 self.videolist.append(tmp) # add the newly created url to list
         link = self.videolist[0]
-        video_link = ('link'=link,'query'=self.query)
+        link2 = self.videolist[1]
+        video_link = {'link':link,'link2':link2}
         return video_link
 
 class TomatoeScrape:
@@ -51,18 +52,18 @@ class TomatoeScrape:
             want_or_like = self.soup.findAll('div', attrs={'class':'smaller bold hidden-xs superPageFontColor'})
             like_or_want = want_or_like[0].getText()
             if like_or_want == 'liked it':
-                movie_data = ('movie'=self.movie,'type'='liked',
-                              'score'=score,'raiting'=raiting)
+                movie_data = {'type':'liked',
+                              'score':score,'raiting':raiting}
                 return movie_data
             elif like_or_want == 'want to see':
-                movie_data = ('movie'=self.movie,'type'='want',
-                              'score'=score,'raiting'=raiting)
+                movie_data = {'type':'want',
+                              'score':score,'raiting':raiting}
                 return movie_data
             else:
                 raise Exception
         except Exception as e:
-            movie_data = ('movie'='none','type'='none',
-                          'score'='none','raiting'='none')
+            movie_data = {'type':'none',
+                          'score':'none','raiting':'none'}
             return movie_data
 
     def IMDb(self):
@@ -70,16 +71,16 @@ class TomatoeScrape:
             pg_up = self.soup.findAll('li', attrs={'class':'meta-row clearfix'})
             if pg_up == []: raise Exception
             up_pg = pg_up[0].getText()
-            movie_data = ('movie'=self.movie,'raiting'=up_pg)
+            movie_data = {'raiting':up_pg}
             return movie_data
         except Exception as e:
-            movie_data = ('movie'='none','raiting'='none')
+            movie_data = {'raiting':'none'}
             return movie_data
 
 class DefinitionFind:
     def __init__(self, query):
         self.query = query
-        url = ('https://www.dictionary.com/browse/' + self.search_query + '?s=t')# combine url with search query from command
+        url = ('https://www.dictionary.com/browse/' + self.query + '?s=t')# combine url with search query from command
         r = get(url) # request page
         page = r.text # formatting
         self.soup = bs(page, 'html.parser') # parse html
@@ -93,10 +94,10 @@ class DefinitionFind:
             definition_type = define_find_type[0].getText()
             definition = define_find[0].getText()
             definition_type_corrected = self.removeComma(definition_type)
-            dictionary_data = ('type'=definition_type_corrected,'definition'=definition)
+            dictionary_data = {'type':definition_type_corrected,'definition':definition}
             return dictionary_data
         except Exception as e:
-            dictionary_data = ('type'='none','definition'='none')
+            dictionary_data = {'type':'none','definition':'none'}
             return dictionary_data
 
     def removeComma(self, definition_type):
