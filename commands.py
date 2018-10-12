@@ -16,15 +16,6 @@ app = Flask(__name__)
 #####################
 
 
-command_list = ['open reddit', 'open subreddit', 'define', 'what is the definition of','google','where is','amazon','open google docs','open google sheets',
-                    'time in','rotten tomatoes','imdb','imdb rating','youtube','search youtube','standby','exit','quit','leave','close','relog','logout','ls',
-                    'dir','contacts','contact list','remove contact','delete contact','add contact','new contact','send email','roll a die','shut down','shutdown'
-                    'what time is it','current time','what is the date','what\'s the date','current date','date today','d6','6 sided die','set a timer for'
-                    'day of the week','week number','open calculator','run calculator','calculator','open stopwatch','run stopwatch','stopwatch','roll a d6',
-                    'roll a 6 sided die','dice','what dice can I roll','flip coin','flip a coin','open twitter','open facebook','open github'
-                ]
-
-
 #COMMANDS
 
 @app.route("/")
@@ -35,24 +26,24 @@ def hello():
 
 @app.route("/rottentomatoes/<movie>")
 def rottentomatoes(movie):
-    TomatoeScrape = TomatoeScrape(movie)
-    movie_data = TomatoeScrape.scrapeRottentomatoes()
+    Tomatoe_Scrape = TomatoeScrape(movie)
+    movie_data = Tomatoe_Scrape.scrapeRottentomatoes()
     return jsonify(movie_data)
 
 @app.route("/imdbrating/<movie>")
-def rottentomatoes(movie):
-    TomatoeScrape = TomatoeScrape(movie)
-    movie_data = TomatoeScrape.IMDb()
+def imdbrating(movie):
+    Tomatoe_Scrape = TomatoeScrape(movie)
+    movie_data = Tomatoe_Scrape.IMDb()
     return jsonify(movie_data)
 
-@app.route("/imdbrating/<query>")
-def rottentomatoes(query):
+@app.route("/youtube/<query>")
+def youtube(query):
     Youtube_Scrape = YoutubeScrape(query)
     youtube_link = Youtube_Scrape.scrapeYoutube() # function to scrape urls
     return jsonify(youtube_link)
 
 @app.route("/definition/<query>")
-def rottentomatoes(query):
+def define(query):
     Definition_Find = DefinitionFind(query)
     definition_data = Definition_Find.scrapeDefinition() # function to scrape urls
     return jsonify(definition_data)
@@ -70,4 +61,4 @@ def rottentomatoes(query):
         Api_Service.dataTaco()
 '''
 if __name__ == '__main__':
-   app.run(host='0.0.0.0')
+   app.run(host='0.0.0.0', debug=False, threaded=True)
