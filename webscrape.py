@@ -71,7 +71,7 @@ class TomatoeScrape:
             pg_up = self.soup.findAll('li', attrs={'class':'meta-row clearfix'})
             if pg_up == []: raise Exception
             up_pg = pg_up[0].getText()
-            movie_data = {'raiting':up_pg}
+            movie_data = {'raiting':up_pg.rstrip()}
             return movie_data
         except Exception as e:
             movie_data = {'raiting':'none'}
