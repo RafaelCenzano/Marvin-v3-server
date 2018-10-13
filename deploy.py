@@ -1,13 +1,8 @@
-#Imports
-from os import system, path # run terminal commands and find files in path
-from json import load, dump # import json load
-from difflib import get_close_matches # import close matches functions
-from datetime import datetime # import datetime to show date and time
-from threading import Thread # import threading to run more than one job at a time
+# Imports
+from os import path # run terminal commands and find files in path
 from api import ApiService # classes to handle api work
 from webscrape import TomatoeScrape, YoutubeScrape, DefinitionFind # import webscrape functions
-import random
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 
 app = Flask(__name__)
 
@@ -18,9 +13,14 @@ app = Flask(__name__)
 
 #COMMANDS
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "<h1>Hello World! Welcome to Marvin api service</h1>"
 
     # Marvin Webscrape Commands #
 
@@ -60,5 +60,3 @@ def define(query):
         Api_Service.tacoFullRand()
         Api_Service.dataTaco()
 '''
-if __name__ == '__main__':
-   app.run(host='0.0.0.0', debug=False, threaded=True)
