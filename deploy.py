@@ -1,8 +1,8 @@
 # Imports
-#from api import ApiService # classes to handle api work
-from rottentomatoes import TomatoeScrape
-from define import DefinitionFind
-from youtube import YoutubeScrape
+from marvin.rottentomatoes import TomatoeScrape
+from marvin.define import DefinitionFind
+from marvin.youtube import YoutubeScrape
+from marvin.taco import TacoService
 from flask import Flask, jsonify
 
 app = Flask(__name__)
