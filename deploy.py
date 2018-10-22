@@ -1,6 +1,8 @@
 # Imports
-from api import ApiService # classes to handle api work
-from webscrape import TomatoeScrape, YoutubeScrape, DefinitionFind # import webscrape functions
+#from api import ApiService # classes to handle api work
+from rottentomatoes import TomatoeScrape
+from define import DefinitionFind
+from youtube import YoutubeScrape
 from flask import Flask, jsonify
 
 app = Flask(__name__)
