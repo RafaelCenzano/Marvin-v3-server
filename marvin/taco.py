@@ -6,7 +6,7 @@ from requests import get
 #########################
 
 
-class ApiService():
+class TacoService():
     def __init__(self, speak_type):
         self.speak_type = speak_type
 
