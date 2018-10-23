@@ -2,15 +2,13 @@
 from marvin.rottentomatoes import TomatoeScrape
 from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
-from marvin.taco import TacoService
 from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-#####################
-# File for commands #
-#####################
-
+'''
+Server for Marvin Virtual Assistant to improve functionality
+'''
 
 #COMMANDS
 
@@ -43,16 +41,3 @@ def define(query):
     Definition_Find = DefinitionFind(query)
     definition_data = Definition_Find.scrapeDefinition() # function to scrape urls
     return jsonify(definition_data)
-
-    # Marvin Api Commands #
-'''
-    elif 'full random taco' == command:
-        Api_Service = ApiService(speak_type)
-        Api_Service.tacoFullRand()
-        Api_Service.dataTaco()
-
-    elif 'random taco' == command:
-        Api_Service = ApiService(speak_type)
-        Api_Service.tacoFullRand()
-        Api_Service.dataTaco()
-'''
