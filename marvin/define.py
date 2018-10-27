@@ -28,7 +28,7 @@ class DefinitionFind:
             dictionary_data = {'type':definition_type_corrected,'definition':definition}
             return dictionary_data
         except Exception as e:
-            dictionary_data = {'type':'none','definition':'none'}
+            dictionary_data = 400
             return dictionary_data
 
     def removeComma(self, definition_type):
