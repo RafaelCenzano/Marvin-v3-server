@@ -12,6 +12,14 @@ Server for Marvin Virtual Assistant to improve functionality
 
 # COMMANDS
 
+@app.errorhandler(404)
+def page_not_found():
+    return redirect({'code':404}) # redirect to /404_not_found
+
+@app.errorhandler(400)
+def page_not_found():
+    return redirect({'code':400}) # redirect to /404_not_found
+
 @app.route("/", methods=['GET'])
 def hello():
     return jsonify({'home':'Welcome to the home of the marvin api'})
