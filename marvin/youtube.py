@@ -45,7 +45,8 @@ class YoutubeScrape:
             else:
                 tmp = 'https://www.youtube.com' + v['href'] # create url to add to list with links from html
                 self.videolist.append(tmp) # add the newly created url to list
-        
+
         # create dictionary to return to send found data in json format
-        video_link = {'link':self.videolist[0],'link2':self.videolist[1]}
+        video_link = {'code':200,'link':self.videolist[0],'link2':self.videolist[1]}
         return video_link # return dictionary
+
