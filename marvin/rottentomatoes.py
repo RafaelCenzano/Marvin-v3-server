@@ -26,11 +26,11 @@ class TomatoeScrape:
             want_or_like = self.soup.findAll('div', attrs={'class':'smaller bold hidden-xs superPageFontColor'})
             like_or_want = want_or_like[0].getText()
             if like_or_want == 'liked it':
-                movie_data = {'type':'liked',
+                movie_data = {'code':200,'type':'liked',
                               'score':score,'raiting':raiting}
                 return movie_data
             elif like_or_want == 'want to see':
-                movie_data = {'type':'want',
+                movie_data = {'code':200,'type':'want',
                               'score':score,'raiting':raiting}
                 return movie_data
             else:
@@ -44,7 +44,7 @@ class TomatoeScrape:
             pg_up = self.soup.findAll('li', attrs={'class':'meta-row clearfix'})
             if pg_up == []: raise Exception
             up_pg = pg_up[0].getText()
-            movie_data = {'raiting':up_pg.rstrip()}
+            movie_data = {'code':200,'raiting':up_pg.rstrip()}
             return movie_data
         except Exception as e:
             movie_data = 400

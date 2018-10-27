@@ -34,5 +34,5 @@ class YoutubeScrape:
                 self.videolist.append(tmp) # add the newly created url to list
         link = self.videolist[0]
         link2 = self.videolist[1]
-        video_link = {'link':link,'link2':link2}
+        video_link = {'code':200,'link':link,'link2':link2}
         return video_link
