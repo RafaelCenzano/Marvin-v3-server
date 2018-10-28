@@ -26,7 +26,7 @@ def hello():
 
     # Marvin Webscrape Commands #
 
-@app.route("api/v1/rottentomatoes/<movie>", methods=['GET'])
+@app.route("/api/v1/rottentomatoes/<movie>", methods=['GET'])
 def rottentomatoes(movie):
     Tomatoe_Scrape = TomatoeScrape(movie)
     movie_data = Tomatoe_Scrape.scrapeRottentomatoes()
@@ -34,7 +34,7 @@ def rottentomatoes(movie):
         return 400
     return jsonify(movie_data)
 
-@app.route("api/v1/imdbrating/<movie>", methods=['GET'])
+@app.route("/api/v1/imdbrating/<movie>", methods=['GET'])
 def imdbrating(movie):
     Tomatoe_Scrape = TomatoeScrape(movie)
     movie_data = Tomatoe_Scrape.IMDb()
@@ -42,13 +42,13 @@ def imdbrating(movie):
         return 400
     return jsonify(movie_data)
 
-@app.route("api/v1/youtube/<query>", methods=['GET'])
+@app.route("/api/v1/youtube/<query>", methods=['GET'])
 def youtube(query):
     Youtube_Scrape = YoutubeScrape(query)
     youtube_link = Youtube_Scrape.scrapeYoutube() # function to scrape urls
     return jsonify(youtube_link)
 
-@app.route("api/v1/definition/<query>", methods=['GET'])
+@app.route("/api/v1/definition/<query>", methods=['GET'])
 def define(query):
     Definition_Find = DefinitionFind(query)
     definition_data = Definition_Find.scrapeDefinition() # function to scrape urls
