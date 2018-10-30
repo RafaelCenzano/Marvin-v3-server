@@ -1,4 +1,4 @@
-requests==2.19.1
+requests==2.20.1
 beautifulsoup4==4.6.0
 flask==1.0.2
 gunicorn==19.9.0
