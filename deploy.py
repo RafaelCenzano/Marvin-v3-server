@@ -2,9 +2,21 @@
 from marvin.rottentomatoes import TomatoeScrape
 from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
-from flask import Flask, jsonify
+from hashlib import sha512 # hash data
+
+# Flask and extensions import
+from flask import Flask, jsonify, request, render_template # Flask module
+from flask_sqlalchemy import SQLAlchemy # SQLAlchemy for database work
+from flask_heroku import Heroku # Heroku configuration
+from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required # Security modules
+
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
+app.config['SECRET_KEY'] = 'super-secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432' # incase you test locally
+#heroku = Heroku(app) # for heroku
+db = SQLAlchemy(app)
 
 '''
 Server for Marvin Virtual Assistant to improve functionality
