@@ -1,10 +1,11 @@
 # Imports
+
+# Marvin code imports
 from marvin.rottentomatoes import TomatoeScrape
 from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
-from hashlib import sha512 # hash data
 
-# Flask and extensions import
+# Flask and extensions imports
 from flask import Flask, jsonify, request, render_template # Flask module
 from flask_sqlalchemy import SQLAlchemy # SQLAlchemy for database work
 from flask_heroku import Heroku # Heroku configuration
