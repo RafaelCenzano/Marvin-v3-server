@@ -4,20 +4,33 @@
 from marvin.rottentomatoes import TomatoeScrape
 from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
+from marvin.database import db_session, init_db
+from marvin.models import User, Role
 
 # Flask and extensions imports
 from flask import Flask, jsonify, request, render_template # Flask module
 from flask_sqlalchemy import SQLAlchemy # SQLAlchemy for database work
 from flask_heroku import Heroku # Heroku configuration
-from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required # Security modules
+from flask_security import Security, login_required, SQLAlchemySessionUserDatastore # Security modules
 
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'super-secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432' # incase you test locally
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432' # incase you test locally
 #heroku = Heroku(app) # for heroku
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
+
+# Setup Flask-Security
+user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
+security = Security(app, user_datastore)
+
+# Create a user to test with
+@app.before_first_request
+def create_user():
+    init_db()
+    user_datastore.create_user(email='matt@nobien.net', password='password')
+    db_session.commit()
 
 '''
 Server for Marvin Virtual Assistant to improve functionality
