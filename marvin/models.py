@@ -1,5 +1,5 @@
 # Imports
-from database import Base
+from marvin.database import Base
 from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
