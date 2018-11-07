@@ -6,6 +6,7 @@ from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
 from marvin.database import db_session, init_db
 from marvin.models import User, Role
+import config
 
 # Flask and extensions imports
 from flask import Flask, jsonify, request, render_template # Flask module
@@ -16,8 +17,8 @@ from flask_security import Security, login_required, SQLAlchemySessionUserDatast
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'super-secret'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432' # incase you test locally
+init_db()
+app.config['SECRET_KEY'] = config.key
 #heroku = Heroku(app) # for heroku
 #db = SQLAlchemy(app)
 
@@ -26,7 +27,7 @@ user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
 security = Security(app, user_datastore)
 
 # Create a user to test with
-@app.before_first_request
+#@app.before_first_request
 def create_user():
     init_db()
     user_datastore.create_user(email='matt@nobien.net', password='password')
@@ -40,11 +41,15 @@ Server for Marvin Virtual Assistant to improve functionality
 
 @app.errorhandler(404)
 def page_not_found():
-    return redirect({'code':404}) # redirect to /404_not_found
+    return jsonify({'code':404}) # redirect to /404_not_found
 
 @app.errorhandler(400)
 def page_not_found():
-    return redirect({'code':400}) # redirect to /404_not_found
+    return jsonify({'code':400}) # redirect to /404_not_found
+
+@app.errorhandler(500)
+def page_not_found():
+    return jsonify({'code':500}) # redirect to /404_not_found
 
 @app.route("/", methods=['GET'])
 def hello():
@@ -52,7 +57,8 @@ def hello():
 
     # Marvin Webscrape Commands #
 
-@app.route("/api/v1/rottentomatoes/<movie>", methods=['GET'])
+@app.route("/api/v1/rottentomatoes/<movie>")
+@login_required
 def rottentomatoes(movie):
     Tomatoe_Scrape = TomatoeScrape(movie)
     movie_data = Tomatoe_Scrape.scrapeRottentomatoes()
