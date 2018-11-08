@@ -1,9 +1,5 @@
 # Imports
 
-# SQLAlchemy imports
-from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
 # A base model for other database tables to inherit
 class Base(db.Model):
     __abstract__ = True
