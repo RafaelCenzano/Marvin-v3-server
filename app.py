@@ -11,7 +11,6 @@ import config
 # Flask and extensions imports
 from flask import Flask, jsonify, request, render_template # Flask module
 from flask_sqlalchemy import SQLAlchemy # SQLAlchemy for database work
-from flask_heroku import Heroku # Heroku configuration
 from flask_security import Security, login_required, SQLAlchemySessionUserDatastore # Security modules
 
 
@@ -19,8 +18,6 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 init_db()
 app.config['SECRET_KEY'] = config.key
-#heroku = Heroku(app) # for heroku
-#db = SQLAlchemy(app)
 
 # Setup Flask-Security
 user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
