@@ -27,10 +27,10 @@ user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
 security = Security(app, user_datastore)
 
 # Create a user to test with
-#@app.before_first_request
+@app.before_first_request
 def create_user():
     init_db()
-    user_datastore.create_user(email='matt@nobien.net', password='password')
+    user_datastore.create_user(email='test@github.com', password='password')
     db_session.commit()
 
 '''
