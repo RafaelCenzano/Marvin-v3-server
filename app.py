@@ -15,12 +15,14 @@ from flask_security import Security, SQLAlchemyUserDatastore, auth_token_require
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = configurations.key
-app.config['SQLALCHEMY_DATABASE_URI'] = configurations.database
+app.config['SECRET_KEY'] = config.key
+app.config['SQLALCHEMY_DATABASE_URI'] = config.database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WTF_CSRF_ENABLED'] = False
+app.config['SECURITY_PASSWORD_HASH'] config.SECURITY_PASSWORD_HASH
+app.config['SECURITY_TRACKABLE'] = config.SECURITY_TRACKABLE
+app.config['SECURITY_PASSWORD_SALT'] = config.SECURITY_PASSWORD_SALT
 db = SQLAlchemy(app)
-
 
 class Base(db.Model):
     __abstract__ = True
