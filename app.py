@@ -33,7 +33,17 @@ def create_user():
 Server for Marvin Virtual Assistant to improve functionality
 '''
 
-# COMMANDS
+# TEST ROUTE
+@app.route('/dummy-api/', methods=['GET'])
+@auth_token_required
+def dummyAPI():
+    ret_dict = {
+        "Key1": "Value1",
+        "Key2": "value2"
+    }
+    return jsonify(items=ret_dict)
+
+# ROUTES
 
 @app.errorhandler(404)
 def page_not_found():
