@@ -4,31 +4,30 @@
 from marvin.rottentomatoes import TomatoeScrape
 from marvin.define import DefinitionFind
 from marvin.youtube import YoutubeScrape
-from marvin.database import db_session, init_db
-from marvin.models import User, Role
+#from marvin.database import db_session, init_db
+from marvin.models import User, Role, Base
 import config
 
 # Flask and extensions imports
 from flask import Flask, jsonify, request, render_template # Flask module
 from flask_sqlalchemy import SQLAlchemy # SQLAlchemy for database work
-from flask_security import Security, login_required, SQLAlchemySessionUserDatastore # Security modules
-
+from flask_security import Security, SQLAlchemySessionUserDatastore, auth_token_required # Security modules
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-init_db()
 app.config['SECRET_KEY'] = config.key
 
 # Setup Flask-Security
-user_datastore = SQLAlchemySessionUserDatastore(db_session, User, Role)
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
 # Create a user to test with
 @app.before_first_request
 def create_user():
-    init_db()
-    user_datastore.create_user(email='test@github.com', password='password')
-    db_session.commit()
+    db.create_all()
+    if not User.query.first():
+        user_datastore.create_user(email='test@example.com', password='test123')
+        db.session.commit()
 
 '''
 Server for Marvin Virtual Assistant to improve functionality
@@ -55,7 +54,7 @@ def hello():
     # Marvin Webscrape Commands #
 
 @app.route("/api/v1/rottentomatoes/<movie>")
-@login_required
+@auth_token_required
 def rottentomatoes(movie):
     Tomatoe_Scrape = TomatoeScrape(movie)
     movie_data = Tomatoe_Scrape.scrapeRottentomatoes()
