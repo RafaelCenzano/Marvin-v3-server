@@ -9,7 +9,17 @@ parser.add_argument('password', help = 'This field cannot be blank', required = 
 class UserRegistration(Resource):
     def post(self):
         data = parser.parse_args()
-        return {'message': 'User registration'}
+        new_user = UserModel(
+            username = data['username'],
+            password = data['password']
+        )
+        try:
+            new_user.save_to_db()
+            return {
+                'message': 'User {} was created'.format( data['username'])
+            }
+        except:
+            return {'message': 'Something went wrong'}, 500
 
 
 class UserLogin(Resource):
