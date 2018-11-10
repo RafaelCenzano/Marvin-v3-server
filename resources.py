@@ -1,4 +1,8 @@
+# Flask Imports
 from flask_restful import Resource, reqparse
+
+# Model Imports
+from models import UserModel
 
 # Parse incoming data
 parser = reqparse.RequestParser()
