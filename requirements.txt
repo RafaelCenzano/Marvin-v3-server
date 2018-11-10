@@ -13,6 +13,8 @@ itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
 passlib==1.7.1
+psycopg2==2.7.6
+psycopg2-binary==2.7.6
 PyJWT==1.6.4
 pytz==2018.7
 requests==2.20.0
