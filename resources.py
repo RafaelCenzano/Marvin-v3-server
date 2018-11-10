@@ -12,11 +12,20 @@ parser.add_argument('password', help = 'This field cannot be blank', required = 
 
 class UserRegistration(Resource):
     def post(self):
+        # Parse data sent
         data = parser.parse_args()
+
+        # Check if user exists
+        if UserModel.find_by_username(data['username']):
+            return {'message': 'User {} already exists'. format(data['username'])}
+
+        # Get data to make new user
         new_user = UserModel(
             username = data['username'],
             password = data['password']
         )
+
+        # Create user in db
         try:
             new_user.save_to_db()
             return {
