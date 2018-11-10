@@ -38,7 +38,14 @@ class UserRegistration(Resource):
 class UserLogin(Resource):
     def post(self):
         data = parser.parse_args()
-        return {'message': 'User login'}
+        current_user = UserModel.find_by_username(data['username'])
+        if not current_user:
+            return {'message': 'User {} doesn\'t exist'.format(data['username'])}
+
+        if data['password'] == current_user.password:
+            return {'message': 'Logged in as {}'.format(current_user.username)}
+        else:
+            return {'message': 'Wrong credentials'}
 
 
 class UserLogoutAccess(Resource):
