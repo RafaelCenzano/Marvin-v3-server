@@ -59,9 +59,15 @@ class UserLogin(Resource):
 
 
 class UserLogoutAccess(Resource):
+    @jwt_required
     def post(self):
-        data = parser.parse_args()
-        return {'message': 'User logout'}
+        jti = get_raw_jwt()['jti']
+        try:
+            revoked_token = RevokedTokenModel(jti = jti)
+            revoked_token.add()
+            return {'message': 'Access token has been revoked'}
+        except:
+            return {'message': 'Something went wrong'}, 500
 
 
 class UserLogoutRefresh(Resource):
