@@ -1,4 +1,9 @@
+# import database object
 from run import db
+
+# Import Hash
+from passlib.hash import pbkdf2_sha256 as sha256
+
 
 class UserModel(db.Model):
     # Create new user in table
