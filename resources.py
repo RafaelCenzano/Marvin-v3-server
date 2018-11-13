@@ -119,3 +119,7 @@ class RottenTomatoesIMDb(Resource):
 
 
 class Youtube(Resource):
+    @jwt_required
+    def get(self, query):
+        Youtube_Scrape = YoutubeScrape(query)
+        return Youtube_Scrape.scrapeYoutube()
