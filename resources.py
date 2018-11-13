@@ -93,6 +93,8 @@ class TokenRefresh(Resource):
 class SecretResource(Resource):
     @jwt_required
     def get(self):
-        return {
-            'answer': 42
-        }
+        return {'answer': 42}
+
+class Test(Resource):
+    def get(self, test_var):
+        return {'hello':test_var}
