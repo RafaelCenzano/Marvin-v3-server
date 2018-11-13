@@ -2,4 +2,4 @@
 Server code for Marvin-v3-client
 
 
-Works with marvin-server to make your experience better
+Works with marvin-client to make your experience better
