@@ -22,9 +22,8 @@ class UserRegistration(Resource):
         # Get data to make new user
         new_user = UserModel(
             username = data['username'],
-            password = data['password']
+            password = UserModel.generate_hash(data['password'])
         )
-
         # Create user in db
         try:
             new_user.save_to_db()
