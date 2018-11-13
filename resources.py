@@ -108,3 +108,8 @@ class RottenTomatoes(Resource):
     def get(self, movie):
         Tomatoe_Scrape = TomatoeScrape(movie)
         return Tomatoe_Scrape.scrapeRottentomatoes()
+
+class RottenTomatoesIMDb(Resource):
+    def get(self, movie):
+        Tomatoe_Scrape = TomatoeScrape(movie)
+        return Tomatoe_Scrape.IMDb()
