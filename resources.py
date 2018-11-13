@@ -105,11 +105,17 @@ class Test(Resource):
 
 
 class RottenTomatoes(Resource):
+    @jwt_required
     def get(self, movie):
         Tomatoe_Scrape = TomatoeScrape(movie)
         return Tomatoe_Scrape.scrapeRottentomatoes()
 
+
 class RottenTomatoesIMDb(Resource):
+    @jwt_required
     def get(self, movie):
         Tomatoe_Scrape = TomatoeScrape(movie)
         return Tomatoe_Scrape.IMDb()
+
+
+class Youtube(Resource):
