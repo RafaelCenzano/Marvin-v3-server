@@ -77,8 +77,8 @@ class TokenRefresh(Resource):
 
 
 class SecretResource(Resource):
+    @jwt_required
     def get(self):
-        data = parser.parse_args()
         return {
             'answer': 42
         }
