@@ -15,8 +15,10 @@ app = Flask(__name__)
 # Configure app properties
 app.config['SECRET_KEY'] = config.KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = config.DB
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config.MOD
 app.config['JWT_SECRET_KEY'] = config.JWT_SECRET_KEY
+app.config['JWT_BLACKLIST_ENABLED'] = config.BLACKLIST
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = config.TOKEN
 
 # Create API property
 api = Api(app)
@@ -29,6 +31,12 @@ jwt = JWTManager(app)
 
 # Import server modules
 import views, models, resources
+
+# Create JWT blacklist
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return models.RevokedTokenModel.is_jti_blacklisted(jti)
 
 # Create tables
 @app.before_first_request
