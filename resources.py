@@ -123,3 +123,10 @@ class Youtube(Resource):
     def get(self, query):
         Youtube_Scrape = YoutubeScrape(query)
         return Youtube_Scrape.scrapeYoutube()
+
+
+class DefinitionFind(Resource):
+    @jwt_required
+    def get(self, query):
+        Definition_Find = DefinitionFind(query)
+        return Definition_Find.scrapeDefinition()
