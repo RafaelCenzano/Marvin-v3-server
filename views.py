@@ -2,7 +2,7 @@
 from run import app
 from flask import jsonify
 
-# Routes
+# Home Route / Testing
 @app.route('/')
 def index():
     return jsonify({'message': 'Hello, World!'})
