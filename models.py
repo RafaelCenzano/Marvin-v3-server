@@ -4,6 +4,8 @@ from run import db
 # Import Hash
 from passlib.hash import pbkdf2_sha256 as sha256
 
+# Import config
+import config
 
 class UserModel(db.Model):
     # Create new user in table
@@ -25,8 +27,8 @@ class UserModel(db.Model):
 
     @staticmethod
     def generate_hash(password):
-        return sha256.hash(password)
+        return sha256.hash(password + config.SECURITY_PASSWORD_SALT)
 
     @staticmethod
     def verify_hash(password, hash):
-        return sha256.verify(password, hash)
+        return sha256.verify(password + config.SECURITY_PASSWORD_SALT, hash)
