@@ -68,12 +68,10 @@ class TokenRefresh(Resource):
 
 class AllUsers(Resource):
     def get(self):
-        data = parser.parse_args()
-        return {'message': 'List of users'}
+        return UserModel.return_all()
 
     def delete(self):
-        data = parser.parse_args()
-        return {'message': 'Delete all users'}
+        return UserModel.delete_all()
 
 
 class SecretResource(Resource):
