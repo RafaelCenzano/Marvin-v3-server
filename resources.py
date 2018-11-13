@@ -4,6 +4,9 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 
 # Model Imports
 from models import UserModel, RevokedTokenModel
+from marvin.rottentomatoes import TomatoeScrape
+from marvin.define import DefinitionFind
+from marvin.youtube import YoutubeScrape
 
 # Parse incoming data
 parser = reqparse.RequestParser()
@@ -95,6 +98,13 @@ class SecretResource(Resource):
     def get(self):
         return {'answer': 42}
 
+
 class Test(Resource):
     def get(self, test_var):
         return {'hello':test_var}
+
+
+class RottenTomatoes(Resource):
+    def get(self, movie):
+        Tomatoe_Scrape = TomatoeScrape(movie)
+        return Tomatoe_Scrape.scrapeRottentomatoes()
