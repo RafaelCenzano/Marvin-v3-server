@@ -1,6 +1,6 @@
-#Imports
-from bs4 import BeautifulSoup as bs # process html
-from requests import get # to request page url code
+# Imports
+from bs4 import BeautifulSoup as bs
+from requests import get
 
 '''
 Get your movie's raitings and what people think of the movie
@@ -11,14 +11,14 @@ Gets rottentomatoes score and imdb raiting
 class TomatoeScrape:
     def __init__(self, movie):
         self.movie = movie
-        self.url = ('https://www.rottentomatoes.com/m/' + self.movie)# combine url with search query from command
-        r = get(self.url) # request page
-        page = r.text # formatting
-        self.soup = bs(page, 'html.parser') # parse html
+        self.url = ('https://www.rottentomatoes.com/m/' + self.movie)
+        r = get(self.url)
+        page = r.text
+        self.soup = bs(page, 'html.parser')
 
     def scrapeRottentomatoes(self):
         try:
-            rt = self.soup.findAll('span', attrs={'class':'meter-value superPageFontColor'}) # search for class meter-value superPageFontColor in html from page
+            rt = self.soup.findAll('span', attrs={'class':'meter-value superPageFontColor'})
             if rt == []: raise Exception
             raiting = rt[0].getText()
             people_score = self.soup.findAll('span', attrs={'class':'superPageFontColor', 'style':'vertical-align:top'})
