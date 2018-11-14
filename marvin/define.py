@@ -11,10 +11,10 @@ gets word definition and type of word exp:'Noun'
 class DefinitionFind:
     def __init__(self, query):
         self.query = query
-        url = ('https://www.dictionary.com/browse/' + self.query + '?s=t')# combine url with search query from command
-        r = get(url) # request page
-        page = r.text # formatting
-        self.soup = bs(page, 'html.parser') # parse html
+        url = ('https://www.dictionary.com/browse/' + self.query + '?s=t')
+        r = get(url)
+        page = r.text
+        self.soup = bs(page, 'html.parser')
 
     def scrapeDefinition(self):
         try:
